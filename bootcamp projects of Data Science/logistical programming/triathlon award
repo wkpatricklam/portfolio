@@ -1,0 +1,17 @@
+# Read in the times for swimming, cycling, and running
+swim_time = float(input("Enter swim time (in minutes): "))
+cycle_time = float(input("Enter cycle time (in minutes): "))
+run_time = float(input("Enter run time (in minutes): "))
+
+# Calculate the total time taken to complete the triathlon
+total_time = swim_time + cycle_time + run_time
+
+# Determine the award based on the total time
+if total_time <= 100:
+    print("Provincial Colours")
+elif total_time <= 105:
+    print("Provincial Half Colours")
+elif total_time <= 110:
+    print("Provincial Scroll")
+else:
+    print("No award")
