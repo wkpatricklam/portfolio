@@ -1,0 +1,61 @@
+import os
+
+def calculate(num1, num2, op):
+    try:
+        if op == "+":
+            return num1 + num2
+        elif op == "-":
+            return num1 - num2
+        elif op == "x":
+            return num1 * num2
+        elif op == "/":
+            return num1 / num2
+        else:
+            raise ValueError("Invalid operator")
+    except ZeroDivisionError:
+        print("Error: division by zero")
+        return None
+
+def write_equation_to_file(num1, num2, op, result, filename):
+    with open(filename, "a") as f:
+        f.write(f"{num1} {op} {num2} = {result}\n")
+
+def read_equations_from_file(filename):
+    if not os.path.exists(filename):
+        raise FileNotFoundError(f"File not found: {filename}")
+    with open(filename, "r") as f:
+        equations = [line.strip() for line in f]
+    return equations
+
+def run_calculator():
+    while True:
+        mode = input("Enter '1' to calculate, '2' to read from file, or 'q' to quit: ")
+        if mode == "q":
+            break
+        elif mode == "1":
+            try:
+                num1 = float(input("Enter the first number: "))
+                num2 = float(input("Enter the second number: "))
+                op = input("Enter the operator (+, -, x, /): ")
+                result = calculate(num1, num2, op)
+                print(f"{num1} {op} {num2} = {result}")
+                write_equation_to_file(num1, num2, op, result, "equations.txt")
+            except ValueError:
+                print(f"Invalid input: ")
+        elif mode == "2":
+            try:
+                filename = input("Enter the file name: ")
+                equations = read_equations_from_file(filename)
+                for equation in equations:
+                    try:
+                        num1, op, num2, _, result = equation.split()
+                        num1, num2, result = float(num1), float(num2), float(result)
+                        print(f"{num1} {op} {num2} = {result}")
+                    except ValueError:
+                        print(f"All equations: {equation}")
+            except FileNotFoundError:
+                print(f"File not found:")
+        else:
+            print("Invalid input")
+
+run_calculator()
