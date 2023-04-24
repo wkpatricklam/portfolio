@@ -1,0 +1,26 @@
+# initialise variables
+count = 0
+total = 0
+
+# loop until user enters -1
+while True:
+    # ask user to enter a number
+    num = input("Enter a number (-1 to stop): ")
+
+    # convert input to integer
+    num = int(num)
+
+    # check if input is -1, and exit loop if so
+    if num == -1:
+        break
+
+    # add input to total and increment count
+    total += num
+    count += 1
+
+# calculate average
+if count > 0:
+    average = total / count
+    print("Average:", average)
+else:
+    print("No numbers entered.")
